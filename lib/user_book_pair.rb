@@ -39,17 +39,27 @@ class UserBookPair
   def get_similarity_score(user)
     # calculate similarity score
     @data.each_with_index do |v, i|
-      sum = 0
+      sum   = 0
+      count = 0
+
       v.each_with_index do |w, j|
         break if i == user - 1
 
         # In the case of a negative value, it means that it's not evaluated.
-        next if @data[user - 1][j] == -1 || w == -1
+        if @data[user - 1][j] == -1 || w == -1
+          count += 1
+          next
+        end
 
         sum += (@data[user - 1][j] - w).abs**2
       end
 
       # make result
+      if count == @num_of_books
+        @similarity_score[i + 1] = 0.0
+        next
+      end
+
       @similarity_score[i + 1] = 1.0 / (Math.sqrt(sum) + 1) unless i == user - 1
     end
 
