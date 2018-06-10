@@ -1,7 +1,4 @@
 require_relative 'lib/user_book_pair'
-require_relative 'lib/detect_similar_users'
-require_relative 'lib/recommend_item'
-require_relative 'lib/validator'
 
 # gets number of user and books
 user, book, evaluation = STDIN.gets.split(' ')
