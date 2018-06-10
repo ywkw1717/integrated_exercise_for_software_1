@@ -1,8 +1,13 @@
-def recommend_item(user_book_pair)
+def recommend_item(user_book_pair, user)
   sum_of_books_score      = []
   sum_of_similarity_score = []
   user_list               = user_book_pair.data.drop(1)
   result                  = []
+
+  # extract not evaluated list
+  user_book_pair.data[user - 1].each_with_index do |x, k|
+    user_book_pair.not_evaluated_books << k + 1 if x == -1
+  end
 
   user_book_pair.not_evaluated_books.each do |v|
     s = 0

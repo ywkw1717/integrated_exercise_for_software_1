@@ -1,4 +1,4 @@
-def detect_similar_users(user_book_pair)
+def detect_similar_users(user_book_pair, user)
   # output similarity score flag
   output_flag = 0
 
@@ -29,23 +29,16 @@ def detect_similar_users(user_book_pair)
   user_book_pair.data.each_with_index do |v, i|
     sum = 0
     v.each_with_index do |w, j|
-      # extract not evaluated list
-      if i.zero?
-        user_book_pair.data[i].each_with_index do |x, k|
-          user_book_pair.not_evaluated_books << k + 1 if x == -1
-        end
-
-        break
-      end
+      break if i == user - 1
 
       # In the case of a negative value, it means that it's not evaluated.
-      next if user_book_pair.data[0][j] == -1 || w == -1
+      next if user_book_pair.data[user - 1][j] == -1 || w == -1
 
-      sum += (user_book_pair.data[0][j] - w).abs**2
+      sum += (user_book_pair.data[user - 1][j] - w).abs**2
     end
 
     # make result
-    user_book_pair.similarity_score[i + 1] = 1.0 / (Math.sqrt(sum) + 1) unless i.zero?
+    user_book_pair.similarity_score[i + 1] = 1.0 / (Math.sqrt(sum) + 1) unless i == user - 1
   end
 
   # sort in descending order

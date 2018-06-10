@@ -6,5 +6,5 @@ require_relative 'lib/recommend_item'
 user, book, evaluation = STDIN.gets.split(' ')
 user_book_pair = UserBookPair.new(user.to_i, book.to_i, evaluation&.to_i)
 
-detect_similar_users(user_book_pair)
-recommend_item(user_book_pair)
+detect_similar_users(user_book_pair, 1)
+recommend_item(user_book_pair, 1)
