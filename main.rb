@@ -7,7 +7,7 @@ require_relative 'lib/validator'
 user, book, evaluation = STDIN.gets.split(' ')
 user_book_pair = UserBookPair.new(user.to_i, book.to_i, evaluation&.to_i)
 
-gets_data(user_book_pair)
+user_book_pair.gets_data
 
 loop do
   print '> '
@@ -20,7 +20,7 @@ loop do
   next if user.nil?
 
   # validation
-  check, message = validator(user_book_pair, user, book, evaluation)
+  check, message = user_book_pair.validator(user, book, evaluation)
   user       = user&.to_i
   book       = book&.to_i
   evaluation = evaluation&.to_f
@@ -32,14 +32,14 @@ loop do
 
   if command == 'rec'
     if book.nil?
-      result = recommend_item(user_book_pair, user)
+      result = user_book_pair.recommend_item(user)
 
       # output result
       result.each do |v|
         puts v.join(' ')
       end
     else
-      result = recommend_item(user_book_pair, user, book)
+      result = user_book_pair.recommend_item(user, book)
       if result.nil?
         puts 'no appropriate item'
       else
