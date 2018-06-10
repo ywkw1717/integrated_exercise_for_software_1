@@ -1,14 +1,14 @@
 require_relative 'lib/user_book_pair'
 require_relative 'lib/friends_adjacency_list'
 
-# gets number of user and books
+# gets user_book_pair
 user, book, evaluation = STDIN.gets.split(' ')
 user_book_pair = UserBookPair.new(user.to_i, book.to_i, evaluation&.to_i)
 user_book_pair.gets_data
 
+# gets friends_adjacency_list
 friend = STDIN.gets
 friends_adjacency_list = FriendsAdjacencyList.new(user.to_i, friend&.to_i)
-
 friends_adjacency_list.gets_data
 friends_adjacency_list.convert_list
 
