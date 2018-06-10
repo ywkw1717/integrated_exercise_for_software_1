@@ -1,14 +1,10 @@
-def detect_similar_users(user_book_pair, user)
-  # output similarity score flag
-  output_flag = 0
-
-  # gets data
+def gets_data(user_book_pair)
   if user_book_pair.num_of_evaluation.nil?
     user_book_pair.num_of_users.times do |i|
       user_book_pair.data[i] = STDIN.gets.split(' ').map(&:to_f)
     end
 
-    output_flag = 1
+    user_book_pair.output_flag = 1
   else
     user_book_pair.num_of_evaluation.times do |_|
       input_value = STDIN.gets.split(' ').map(&:to_f)
@@ -24,7 +20,9 @@ def detect_similar_users(user_book_pair, user)
       v.map! { |s| s || -1.0 } # beautiful!
     end
   end
+end
 
+def detect_similar_users(user_book_pair, user)
   # calculate similarity score
   user_book_pair.data.each_with_index do |v, i|
     sum = 0
@@ -44,7 +42,7 @@ def detect_similar_users(user_book_pair, user)
   # sort in descending order
   result = user_book_pair.similarity_score.sort_by { |_, score| -score }
 
-  return if output_flag.zero?
+  return if user_book_pair.output_flag.zero?
 
   # output result
   result.each do |v|
