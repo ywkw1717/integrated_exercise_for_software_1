@@ -44,6 +44,11 @@ loop do
       end
     end
   elsif command == 'eval'
+    if evaluation.nil?
+      puts 'can not evaluate.'
+      next
+    end
+
     user_book_pair.data[user - 1][book - 1] = evaluation
     puts user_book_pair.data[user - 1][book - 1]
     puts 'evaluation is complete.'
