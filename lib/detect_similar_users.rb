@@ -22,7 +22,7 @@ def gets_data(user_book_pair)
   end
 end
 
-def detect_similar_users(user_book_pair, user)
+def get_similarity_score(user_book_pair, user)
   # calculate similarity score
   user_book_pair.data.each_with_index do |v, i|
     sum = 0
@@ -39,13 +39,10 @@ def detect_similar_users(user_book_pair, user)
     user_book_pair.similarity_score[i + 1] = 1.0 / (Math.sqrt(sum) + 1) unless i == user - 1
   end
 
-  # sort in descending order
-  result = user_book_pair.similarity_score.sort_by { |_, score| -score }
+  result = user_book_pair.similarity_score
 
-  return if user_book_pair.output_flag.zero?
+  # initialize similarity_score
+  user_book_pair.similarity_score = {}
 
-  # output result
-  result.each do |v|
-    puts v.join(' ')
-  end
+  result
 end
