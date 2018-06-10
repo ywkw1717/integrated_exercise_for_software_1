@@ -13,6 +13,7 @@ def validator(user_book_pair, user, book, evaluation)
     return false, 'no appropriate item' if book > user_book_pair.num_of_books || book < 1
   end
 
+  # evaluation check
   unless evaluation.nil?
     return false, 'can not evaluate.' if (evaluation =~ /^\d+\.\d+$/).nil?
 
