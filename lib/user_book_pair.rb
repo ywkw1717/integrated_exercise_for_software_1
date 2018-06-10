@@ -64,7 +64,6 @@ class UserBookPair
   def recommend_item(user, book=nil)
     sum_of_books_score      = []
     sum_of_similarity_score = []
-    user_list               = @data.drop(1)
     result                  = []
     similarity_score        = get_similarity_score(user)
 
@@ -77,11 +76,11 @@ class UserBookPair
       s = 0
       a = 0
 
-      user_list.each_with_index do |w, i|
-        next if w[v - 1] == -1
+      @data.each_with_index do |w, i|
+        next if i == user - 1 || w[v - 1] == -1
 
-        s += w[v - 1] * similarity_score[i + 2]
-        a += similarity_score[i + 2]
+        s += w[v - 1] * similarity_score[i + 1]
+        a += similarity_score[i + 1]
       end
 
       sum_of_books_score << [v, s]
