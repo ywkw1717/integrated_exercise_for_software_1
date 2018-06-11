@@ -7,6 +7,7 @@ user_book_pair = UserBookPair.new(user.to_i, book.to_i, evaluation&.to_i)
 user_book_pair.gets_data
 
 loop do
+  print '> '
   begin
     command, user, book, evaluation = STDIN.gets.split(' ')
   rescue
@@ -23,7 +24,6 @@ loop do
     end
     break
   end
-  print '> '
 
   # exit
   break if command == 'exit' || command == 'quit'
