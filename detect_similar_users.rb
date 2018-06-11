@@ -7,8 +7,23 @@ user_book_pair = UserBookPair.new(user.to_i, book.to_i, evaluation&.to_i)
 user_book_pair.gets_data
 
 loop do
+  begin
+    command, user, book, evaluation = STDIN.gets.split(' ')
+  rescue
+    # no interface case
+    result = user_book_pair.get_similarity_score(1) # user1
+    result = result.sort_by { |_, value| -value }
+    result.each do |e|
+      puts e.join(' ')
+    end
+
+    result = user_book_pair.recommend_item(1)
+    result.each do |e|
+      puts e.join(' ')
+    end
+    break
+  end
   print '> '
-  command, user, book, evaluation = STDIN.gets.split(' ')
 
   # exit
   break if command == 'exit' || command == 'quit'

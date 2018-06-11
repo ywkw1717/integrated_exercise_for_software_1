@@ -98,6 +98,9 @@ class UserBookPair
         a += similarity_score[i + 1]
       end
 
+      # Nobody evaluation
+      next if s.zero?
+
       sum_of_books_score << [v, s]
       sum_of_similarity_score << [v, a]
     end
